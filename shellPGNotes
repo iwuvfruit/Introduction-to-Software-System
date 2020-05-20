@@ -1,0 +1,108 @@
+My Linux/shell Commands 
+pwd - current directory
+cd - navigate 
+cd without argument - home directory
+cd directoryname/subdirecotry
+mkdir - make directory
+/ - root
+. - current
+.. - parent directory 
+cat filename= displya contents of file to screen 
+
+Filenames are referenced using directoryname/filename
+● If your in the file’s directory, just filename is fine
+● Directoryname could be local or rooted
+○ /Meghan/work/data/tables.txt
+○ ../../../Meghan/work/data/tables.txt (if we’re in the same directory as before)
+
+The command ‘ls’ takes some arguments
+● Just by itself, ‘ls’ lists all the files and directories in the current directory
+● Adding a directory name: lists all the files and directories in that directory
+● Adding a file name - lists file (only if it’s there)
+● Adding a flag (e.g. -l in the previous example) lists the files with some catch
+● You can combine flags (ls -l -a -r OR ls -lar) in any order
+● Look up the man or help page to see all the ways ls is used, e.g.:
+○ -l lists some relevant information including permissions, last edit time
+○ -R lists all contents within directories and subdirectories and so on
+○ -t sorts by edit time
+
+Unix wildcard characters
+● * any string
+● ? any one character
+● [abc] any character in the brackets
+● [!abc] any character not in the brackets
+● Example: ls *.txt lists all files that end in “.txt”
+● Example: ls *2018* lists all files with 2018 
+
+Moving Files
+● Copy: cp old_filename new_filename
+○ Copy to current directory without name change: cp /Joe/pics/2018/Vacation1.jpg .
+○ The single dot represents current directory
+● Move: mv filename new_directory
+● Remove: rm filename
+
+Viewing files
+● You could always open the contents of a file in vim, but sometimes you don’t
+want to open an entire file (e.g. if they are so large)
+● cat filename - displays contents of file to screen
+● head filename - displays first 10 lines (default)
+● head -5 filename - displays first 5 lines (with flag)
+● tail filename - displays last 10 line (default, also works with flags)
+● more filename - if you have a large file, it scrolls down
+● You can use wildcard characters here too
+○ Example: head *.txt lists the first 10 lines of all .txt files
+
+More advanced file viewing
+● sort - sorts file
+○ Many, many different flags for this command!
+● cut - extracts specific columns from a text file.
+● grep - searches file
+○ grep [query] [filename]
+○ grep Joe students.txt
+○ Outputs all lines with “Joe” in them - including things like Joel, Joelle, randomstuffJoehello
+○ grep uses regular expressions kind of like unix wildcards for complicated queries
+● sed and awk
+○ More complicated commands to modify contents within files
+○ sed - popular for find and replace
+○ awk - popular for manipulating the contents of a table
+○ Could make assignment 1 a bit easier but you haven’t covered them in class 
+
+
+input redirection: < ex) grep pattern < search_file.txt. The contents of the file are fed to a program as if you typed it.
+output redirection: > ex) ls > file_info.txt.
+we can do bot input and output redirections. ex) sort < nums > sortednums
+ The redirection > writes the output to a file (>> appends it)
+○ ls > filenames.txt
+○ head -1 filename.txt > header.txt
+● The pipe | takes the output of a command and feeds is as input for the next
+command; hold the output of one program and feed
+it to the input of another 
+ ls -la | wc -l
+○ ls | sort | head -1 > firstline.txt
+○ Same as:
+○ ls > file1, sort file1 > file2, head -1 > firstline.txt
+
+` backticks (the thing beside the 1 on your keyboard) - nested execution
+● cat [filename 1, filename 2, filename 3…] concatenates every file listed
+● Example: cat `ls *.txt`
+cat `ls *.txt`
+● cat a.txt b.txt c.txt
+ls *.txt | cat
+● cat [a file whose contents is
+that of ls *.txt
+
+my_var=hello
+● echo $my_var
+● Several variables are set with default
+○ Example: $PWD is your current directory
+● $0 is the filename
+● $1, $2, $3…. are arguments passed at runtime (like java argv) 
+
+bash is space sensitive - important for comparisons
+○ `expr 3 + 4` = 7 - this is true
+○ `expr 3+4` = 7 - this is false. Bash treats 3+4 as a string that’s “3+4” 
+
+wordCount:
+wc -l < <filename> 
+
+man <command_to_know>
