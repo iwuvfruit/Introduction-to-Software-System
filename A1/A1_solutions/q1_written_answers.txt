@@ -1,0 +1,80 @@
+Q1)
+    a)
+104kg
+364kg
+450kg
+1000kg
+1800kg
+4900kg
+29000kg
+110000kg
+
+I discovered this by running
+grep -Eo '[0-9]{1,}kg' *.dat | sort -t: -n -k2 | cut -d":" -f2
+#I'm using grep and regular expression to grab all {numbers+kg} in the files that end with dat. And doing a numeric sort with sort method. I added cut at the end because the question says "ignore name here". 
+
+
+    b)
+24m
+15m
+6m
+5m
+5m
+4m
+1m
+0m
+
+I discovered this by running
+grep -Eo '[0-9]{1,}m' *.dat | sort -r -t: -n -k2 | cut -d":" -f2
+#I'm using grep and regular expression to grab all {number+m} in the files that end with dat. And doing a numeric sort in reverse with sort -r method. I added cut at the end because the question says "ignore name here". 
+    c)
+Elephants weight more
+
+I discovered this by creating a bash file and running that bash file. Following is the code in my bash file.
+#!/bin/bash
+
+#grab the weight of hippo
+input=$(find *.dat -name '*hippo*')
+hippoWeight=$(grep -Eo '[0-9]{1,}kg' $input)
+#grab the weight of elephant
+elephantWeight=$(grep -Eo '[0-9]{1,}kg' elephant.dat)
+#print the weight of hippo
+echo "hippo weights $hippoWeight"
+#prints the weight of elephant
+echo "elephant weights $elephantWeight"
+#use if to find out which is heavier
+if [ "${hippoWeight%kg}" -gt "${elephantWeight%kg}" ]; then
+    echo "hippo weights more"
+elif [ "${hippoWeight%kg}" -lt "${elephantWeight%kg}" ]; then
+    echo "elephant weights more"
+else
+    echo "they are the same weight"
+fi
+
+    d)
+The new weights is 452
+
+I discovered this and overwrote the value 452 in the file by running
+#!/bin/bash
+
+#grabing the weight of crocodile and removing kg
+crocWeight=$(grep -Eo '[0-9]{1,}kg' crocodile.dat | sed 's/[^0-9]*//g')
+#adding 2 to the new weight
+newWeight=$((2+$crocWeight))
+#display the new weight
+echo $newWeight
+#need crocLength to overwrite crocodile.dat with a new crocWeight
+crocLength=$(cut -d ' ' -f2 crocodile.dat)
+echo $crocLength
+#overwrite crocodile.dat
+echo "${newWeight}kg $crocLength" > crocodile.dat
+#check if it has been overwritten
+cat crocodile.dat
+
+    e)
+#I remove all traces of giraffe by running the following code
+rm -r *giraffe*
+
+#I added -r just in case there's a folder named containing the word girafee
+
+

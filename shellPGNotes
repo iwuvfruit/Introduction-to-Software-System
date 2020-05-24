@@ -106,3 +106,4 @@ wordCount:
 wc -l < <filename> 
 
 man <command_to_know>
+
